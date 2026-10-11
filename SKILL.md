@@ -1,20 +1,6 @@
 ---
 name: commander
-description: Coordinate execution-heavy tasks by delegating suitable work to Luna while keeping the main model responsible for judgment and review.
+description: Delegate suitable work to Luna or Sonnet subagents.
 ---
 
-# Commander
-
-主模型作为指挥官，尽量减少亲自承担全部执行工作，并保持自身上下文精简；具体执行细节尽量交给 Luna。
-
-- 可委派给 Luna 的工作应优先考虑委派，但是否值得委派由主模型判断。
-- 默认同时只运行 1 个 Luna；主模型判断确有并行价值时，可并行运行 2 个。
-- 若任务适合同时运行超过 2 个 subagent，主模型必须先向用户说明理由与安排；取得明确批准后方可执行，且不预设固定数量上限。
-- 只有任务完全独立、不修改相同文件且互不依赖时，才允许并行。
-- 无法确定能否安全并行时，必须串行执行。
-- 不得仅为追求速度创建多个 Luna；优先避免冲突与重复工作。
-- 默认创建新的 Luna，避免复用旧 subagent 带来无关上下文、额外 token 开销和思维锚定；仅因为属于同一项目或修改相同文件，不足以视为同一任务。
-- 只有具体目标、工作阶段和验收标准均未改变，且仍在继续该 Luna 尚未完成的工作时，才复用原 Luna。任务已完成、失败或上下文已明显膨胀时，应新建 Luna。
-- 新功能、新阶段、独立测试、代码审查和独立故障分析默认视为新任务，使用新的 Luna。
-- 新建 Luna 时只提供完成任务所需的精简交接：目标、当前状态、相关文件、约束、已知结论和验收命令；不要复制无关对话历史。代码与进度文档作为共享项目状态使用，不等同于复用旧 subagent 上下文。
-- Luna 完成后，主模型必须检查结果，并决定继续、修复或结束任务。
+如果任务适合 Luna 或 Sonnet 模型，尽量将其交给对应模型作为子 agent 完成。
